@@ -1,24 +1,48 @@
-let tableau = [];
+let local_storage_key = "livre";
 
-let i = 0;
+// Affiche le livre après que l'utilisateur a saisi les détails
 function showBook() {
     let nomDuLivre = document.getElementById("nom").value;
-    let nomAutheur = document.getElementById("author").value;
+    let nomAuteur = document.getElementById("author").value;
     let anneeLivre = document.getElementById("year").value;
 
-    addBook(nomDuLivre, nomAutheur, anneeLivre);
+    addBook(nomDuLivre, nomAuteur, anneeLivre);
 }
 
-function addBook(nomDuLivre, nomAutheur, anneeLivre) {
-
-    let local_storage_key = `livre_$(i++)`
-
+// Ajoute un livre à la liste et le stocke dans le local storage
+function addBook(nomDuLivre, nomAuteur, anneeLivre) {
     let bookList = document.getElementById("bookList");
-    bookList.innerHTML += `<p>Titre: ${nomDuLivre}, Auteur: ${nomAutheur}, Année: ${anneeLivre}</p>`;
 
+    // Créer un nouvel objet livre
+    let newBook = {
+        titre: nomDuLivre,
+        auteur: nomAuteur,
+        annee: anneeLivre
+    };
 
-   localStorage.setItem(local_storage_key, [nomDuLivre, nomAutheur, anneeLivre]);
+    // Récupérer les livres existants du local storage
+    let books = JSON.parse(localStorage.getItem(local_storage_key)) || [];
+
+    // Ajouter le nouveau livre à la liste
+    books.push(newBook);
+
+    // Mettre à jour le local storage
+    localStorage.setItem(local_storage_key, JSON.stringify(books));
+
+    // Afficher le nouveau livre
+    bookList.innerHTML += `<p>Titre: ${nomDuLivre}, Auteur: ${nomAuteur}, Année: ${anneeLivre}</p>`;
 }
 
-let data = localStorage.getItem("livre").split(",")
-console.log(data[2])
+// Charger les livres depuis le local storage et les afficher lors du chargement de la page
+function loadBooks() {
+    let bookList = document.getElementById("bookList");
+    let books = JSON.parse(localStorage.getItem(local_storage_key)) || [];
+
+    // Afficher chaque livre
+    books.forEach(book => {
+        bookList.innerHTML += `<p>Titre: ${book.titre}, Auteur: ${book.auteur}, Année: ${book.annee}</p>`;
+    });
+}
+
+// Appeler loadBooks lorsque la page se charge
+window.onload = loadBooks;
