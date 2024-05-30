@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://cdn.tailwindcss.com"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <img src="Apple-logo.png" class="object-scale-down h-12 w-21" />
+    <h1 class="text-left font-extrabold p-5">Site test</h1>
 </head>
-<body>
+<body class="min-h-screen bg-gradient-to-r from-indigo-600 to-pink-500 text-white flex flex-col items-center py-10">
+    <h1 class="text-black-400 text-4xl font-extrabold p-10  "> Ajouter un livre</h1>
     Book name :
     <input type="text" id="nom" class="form">
+    <br>
     <br>
     Author :
     <input type="text" id="author" class="form">
     <br>
+    <br>
     Year :
     <input type="text" id="year" class="form">
     <br>
-
-    <button onclick="showBook()"> Ajouter un livre</button>
+    <br>
+    <button class="bg-blue-500 px-6 py-1 text-white rounded-md" onclick="showBook()"> Ajouter un livre</button>
     <br>
     <br>
-    <h1> Liste des livres</h1>
+    <h1 class="text-black-400 text-2xl font-extrabold py-5" > Liste des livres</h1>
     <ul id="bookList"></ul>
 
-    <script src="app1.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
